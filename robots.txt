@@ -1,0 +1,16 @@
+# This site must NOT be indexed by search engines.
+#
+# Deliberately NOT using "Disallow: /".
+# Disallow blocks CRAWLING, not INDEXING. A disallowed URL can still be
+# indexed (shown as a bare, snippet-less result) if it is linked from
+# anywhere else. Worse, blocking the crawl means crawlers never see the
+# noindex directives, so the block would defeat the actual protection.
+#
+# Crawling is allowed so that every response's `X-Robots-Tag: noindex`
+# header and every page's <meta name="robots" content="noindex"> tag are
+# actually read and obeyed.
+
+User-agent: *
+Allow: /
+
+# No sitemap is published, by design.

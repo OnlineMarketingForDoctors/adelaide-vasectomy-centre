@@ -1,0 +1,4 @@
+# Netlify / Cloudflare Pages header rules.
+# Kept in sync with vercel.json — see CLAUDE.md "Non-negotiable: this site must never be indexed".
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate
