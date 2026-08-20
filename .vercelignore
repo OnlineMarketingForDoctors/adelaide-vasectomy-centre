@@ -1,0 +1,6 @@
+# Source material — kept in the repo, never served.
+# Review screenshots and the original photography are working files; the site
+# uses the processed images in assets/img/ and the copy transcribed from them.
+assets/reviews/
+assets/doctors-photos/
+CLAUDE.md
