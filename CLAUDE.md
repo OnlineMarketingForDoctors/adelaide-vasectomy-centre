@@ -47,6 +47,21 @@ not. If the requirement is that nobody at all can see the site, the site must
 not be publicly reachable: use Vercel Deployment Protection (password or SSO)
 or equivalent HTTP auth. Ask the owner if that level is wanted.
 
+## Vercel: why `outputDirectory` is pinned
+
+`vercel.json` sets `"outputDirectory": "."` deliberately. This project was
+imported into Vercel while the repo held only assets and config, so Vercel
+detected no framework and locked in `public` as the output directory. Once
+`public/_headers` existed, deployments served that one file and returned 404
+for `/` and every real asset — while still sending the correct
+`X-Robots-Tag`, which makes the failure easy to misread as "headers fine, so
+the deploy is fine".
+
+Settings in `vercel.json` override the dashboard, so the fix stays in version
+control. Do not remove `outputDirectory`, and do not add comment keys such as
+`"//"` — Vercel's schema rejects unknown properties and the deploy fails with
+`should NOT have additional property`.
+
 ### Before every deploy
 
 Verify the header is actually being served, rather than assuming:
@@ -57,3 +72,16 @@ curl -sSI https://<deployed-url>/ | grep -i x-robots-tag
 
 A missing header means layer 1 is not live — fix it before announcing the
 deploy.
+
+Check the **status code too**, not just the header. Vercel sends the
+`X-Robots-Tag` on 404s as well, so a header check alone will pass on a
+completely broken deploy:
+
+```sh
+curl -sSI https://<deployed-url>/ | head -1   # expect 200, or 302 to SSO
+```
+
+Note that every `*.vercel.app` URL for this project sits behind Vercel
+Authentication (`ssoProtection: all_except_custom_domains`), so an
+unauthenticated request returns a 302 to the SSO login rather than the page.
+That is the desired state while the site is private.

@@ -1,12 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-
-  "//": "outputDirectory is pinned to the repo root on purpose. This project was imported when the repo held only assets and config, so Vercel detected no framework and locked in `public` as the output directory. That made it serve public/_headers and 404 everything else. Settings in this file override the dashboard, so this keeps the fix in version control rather than in someone's UI session.",
   "outputDirectory": ".",
   "framework": null,
   "buildCommand": null,
   "installCommand": null,
-
   "headers": [
     {
       "source": "/(.*)",
