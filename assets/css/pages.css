@@ -5,14 +5,20 @@
 
 /* --- Page hero ---------------------------------------------------------- */
 
+/* Full height, copy centred in it. */
 .phero {
   position: relative;
   overflow: hidden;
-  min-height: clamp(24rem, 46vh, 34rem);
+  min-height: 100svh;
   display: flex;
-  align-items: flex-end;
-  padding-block: 9rem clamp(2.5rem, 5vw, 4rem);
+  align-items: center;
+  padding-block: 9rem clamp(3rem, 6vw, 5rem);
   background: var(--teal-deep);
+}
+
+/* A short viewport with a long standfirst would otherwise clip. */
+@media (max-height: 34rem) {
+  .phero { min-height: auto; padding-block: 8rem 3rem; }
 }
 
 .phero__media { position: absolute; inset: 0; z-index: 0; }
@@ -25,18 +31,24 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to top,
-    var(--ink) 0%,
-    rgba(8, 24, 29, 0.9) 24%,
-    rgba(8, 24, 29, 0.55) 52%,
-    rgba(8, 24, 29, 0.45) 100%
-  );
+  background:
+    linear-gradient(to top, var(--ink) 0%, rgba(8, 24, 29, 0.55) 30%,
+                    rgba(8, 24, 29, 0.3) 62%, rgba(8, 24, 29, 0.5) 100%),
+    linear-gradient(to right, rgba(8, 24, 29, 0.86) 0%,
+                    rgba(8, 24, 29, 0.45) 55%, rgba(8, 24, 29, 0.25) 100%);
 }
 
 .phero__inner { position: relative; z-index: 1; width: 100%; }
 .phero__title { max-width: 18ch; }
 .phero__lede { margin: 1.75rem 0 0; }
+
+.phero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  margin-top: clamp(2rem, 4vw, 2.75rem);
+}
 
 .crumb {
   font-family: var(--mono);

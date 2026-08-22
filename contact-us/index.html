@@ -32,15 +32,46 @@
   <a class="masthead__logo" href="../" aria-label="Adelaide Vasectomy Centre — home">
     <img src="../assets/brand/logo.svg" alt="Adelaide Vasectomy Centre" width="516" height="93" />
   </a>
+
   <nav class="masthead__nav" aria-label="Primary">
     <a class="masthead__link" href="../patient-information/">Patient info</a>
     <a class="masthead__link" href="../about-us/">About</a>
     <a class="masthead__link" href="../vasectomy-fees/">Fees</a>
     <a class="masthead__link" href="../location/">Location</a>
     <a class="masthead__link" href="../contact-us/" aria-current="page">Contact</a>
-    <a class="btn btn--primary" href="https://bookings.gettimely.com/vasectomyaustralia/bb/book?location=173700&amp;product=2854571%3ASV&amp;staff=288783">Book online</a>
   </nav>
+
+  <div class="masthead__end">
+    <a class="masthead__icon" href="tel:1800764763" aria-label="Call 1800 SNIPME on 1800 764 763">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+    </a>
+    <a class="btn btn--primary" href="https://bookings.gettimely.com/vasectomyaustralia/bb/book?location=173700&amp;product=2854571%3ASV&amp;staff=288783">Book online</a>
+    <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span>
+    </button>
+  </div>
 </header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav class="drawer__nav" aria-label="Menu">
+    <a href="../patient-information/">Patient info</a>
+    <a href="../about-us/">About</a>
+    <a href="../vasectomy-fees/">Fees</a>
+    <a href="../location/">Location</a>
+    <a href="../contact-us/" aria-current="page">Contact</a>
+    <a href="../recovery/">After your vasectomy</a>
+    <a href="../book-online/">Book online</a>
+    <a href="../privacy-policy/">Privacy policy</a>
+  </nav>
+  <div class="drawer__foot">
+    <p>
+      <a href="tel:1800764763">1800 SNIPME</a> &middot; 1800 764 763<br />
+      <a href="mailto:info@vasectomyaustralia.com.au">info@vasectomyaustralia.com.au</a><br />
+      252A Magill Rd, Beulah Park SA 5067
+    </p>
+    <a class="btn btn--primary" href="https://bookings.gettimely.com/vasectomyaustralia/bb/book?location=173700&amp;product=2854571%3ASV&amp;staff=288783">Book online <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
 
 <main id="main">
   <!-- ===== Hero ========================================================= -->
@@ -59,6 +90,10 @@
         or send a note below &mdash; and a free phone consultation with your doctor
         is always an option.
       </p>
+      <div class="phero__actions">
+        <a class="btn btn--primary" href="tel:1800764763">Call 1800 SNIPME <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="btn btn--ghost" href="#enquiry">Send an enquiry</a>
+      </div>
     </div>
   </section>
 
@@ -182,6 +217,10 @@
     </p>
   </div>
 </footer>
+
+<button class="totop" type="button" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
 
 <script src="../assets/js/site.js" defer></script>
 </body>

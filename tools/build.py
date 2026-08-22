@@ -93,6 +93,18 @@ def nav(active, depth):
     return "\n".join(out)
 
 
+def drawer_links(active, depth):
+    up = "../" * depth
+    items = NAV_ITEMS + [("recovery", "After your vasectomy"),
+                         ("book-online", "Book online"),
+                         ("privacy-policy", "Privacy policy")]
+    out = []
+    for slug, label in items:
+        cur = ' aria-current="page"' if slug == active else ""
+        out.append(f'    <a href="{up}{slug}/"{cur}>{label}</a>')
+    return "\n".join(out)
+
+
 def footer_links(depth):
     up = "../" * depth
     items = [(f"{up}patient-information/", "Patient info"),
@@ -140,11 +152,35 @@ SHELL = """<!DOCTYPE html>
   <a class="masthead__logo" href="{up}" aria-label="Adelaide Vasectomy Centre — home">
     <img src="{up}assets/brand/logo.svg" alt="Adelaide Vasectomy Centre" width="516" height="93" />
   </a>
+
   <nav class="masthead__nav" aria-label="Primary">
 {nav}
-    <a class="btn btn--primary" href="{booking}">Book online</a>
   </nav>
+
+  <div class="masthead__end">
+    <a class="masthead__icon" href="tel:1800764763" aria-label="Call 1800 SNIPME on 1800 764 763">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15 15 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+    </a>
+    <a class="btn btn--primary" href="{booking}">Book online</a>
+    <button class="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+      <span></span>
+    </button>
+  </div>
 </header>
+
+<div class="drawer" id="drawer" hidden>
+  <nav class="drawer__nav" aria-label="Menu">
+{drawer}
+  </nav>
+  <div class="drawer__foot">
+    <p>
+      <a href="tel:1800764763">1800 SNIPME</a> &middot; 1800 764 763<br />
+      <a href="mailto:info@vasectomyaustralia.com.au">info@vasectomyaustralia.com.au</a><br />
+      252A Magill Rd, Beulah Park SA 5067
+    </p>
+    <a class="btn btn--primary" href="{booking}">Book online <span class="btn__arrow" aria-hidden="true">&rarr;</span></a>
+  </div>
+</div>
 
 <main id="main">
 {body}
@@ -169,6 +205,10 @@ SHELL = """<!DOCTYPE html>
   </div>
 </footer>
 
+<button class="totop" type="button" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+</button>
+
 <script src="{up}assets/js/site.js" defer></script>
 </body>
 </html>
@@ -191,6 +231,7 @@ def build():
 
         html = SHELL.format(title=title, description=desc, up=up,
                             nav=nav(active, depth), footer=footer_links(depth),
+                            drawer=drawer_links(active, depth),
                             booking=BOOKING, body=body)
 
         dest = ROOT / out

@@ -128,6 +128,58 @@
     play.addEventListener("click", start);
   }
 
+  /* ---- Mobile menu ------------------------------------------------------ */
+
+  /* Below 60rem the header nav is hidden, so without this there is no way to
+     reach any other page from a phone. */
+  var burger = document.querySelector(".burger");
+  var drawer = document.getElementById("drawer");
+
+  if (burger && drawer) {
+    var setMenu = function (open) {
+      drawer.hidden = !open;
+      burger.setAttribute("aria-expanded", String(open));
+      burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      /* Stop the page behind the drawer scrolling with it. */
+      document.body.style.overflow = open ? "hidden" : "";
+      if (open) {
+        var first = drawer.querySelector("a");
+        if (first) first.focus();
+      } else {
+        burger.focus();
+      }
+    };
+
+    burger.addEventListener("click", function () {
+      setMenu(drawer.hidden);
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !drawer.hidden) setMenu(false);
+    });
+
+    /* Rotating a phone into landscape can cross the breakpoint and leave the
+       drawer open over a nav that is visible again. */
+    window.addEventListener("resize", function () {
+      if (!drawer.hidden && window.innerWidth > 960) setMenu(false);
+    }, { passive: true });
+  }
+
+  /* ---- Back to top ------------------------------------------------------ */
+
+  var totop = document.querySelector(".totop");
+  if (totop) {
+    var toggleTop = function () {
+      totop.classList.toggle("is-shown", window.scrollY > 700);
+    };
+    toggleTop();
+    window.addEventListener("scroll", toggleTop, { passive: true });
+
+    totop.addEventListener("click", function () {
+      window.scrollTo({ top: 0, behavior: reduced ? "auto" : "smooth" });
+    });
+  }
+
   /* ---- Stage tabs ------------------------------------------------------- */
 
   var tabbed = document.querySelector("[data-tabs]");

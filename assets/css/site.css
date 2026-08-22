@@ -247,6 +247,157 @@ a { color: inherit; }
   gap: clamp(1rem, 2.2vw, 2.25rem);
 }
 
+/* Phone, book, and (below 60rem) the menu button. */
+.masthead__end {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: none;
+}
+
+.masthead__icon {
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--rule-dark);
+  display: grid;
+  place-items: center;
+  color: var(--ivory);
+  transition: border-color 0.25s var(--ease), color 0.25s var(--ease);
+}
+.masthead__icon svg {
+  width: 1.05rem; height: 1.05rem;
+  fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.masthead__icon:hover { border-color: var(--mint); color: var(--mint); }
+
+.burger {
+  display: none;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  border: 1px solid var(--rule-dark);
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  place-items: center;
+  transition: border-color 0.25s var(--ease);
+}
+.burger:hover { border-color: var(--mint); }
+
+.burger span {
+  position: relative;
+  width: 1.05rem;
+  height: 1px;
+  background: var(--ivory);
+  display: block;
+  transition: background 0.2s var(--ease);
+}
+.burger span::before,
+.burger span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: var(--ivory);
+  transition: transform 0.3s var(--ease);
+}
+.burger span::before { top: -6px; }
+.burger span::after  { top: 6px; }
+
+.burger[aria-expanded="true"] span { background: transparent; }
+.burger[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+.burger[aria-expanded="true"] span::after  { transform: translateY(-6px) rotate(-45deg); }
+
+/* --- Mobile drawer ------------------------------------------------------ */
+
+.drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--ink);
+  display: grid;
+  align-content: center;
+  padding: 6rem var(--gutter) 3rem;
+  overflow-y: auto;
+}
+.drawer[hidden] { display: none; }
+
+.drawer__nav { display: grid; gap: 0.25rem; }
+.drawer__nav a {
+  display: block;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule-dark);
+  font-family: var(--display);
+  font-variation-settings: "SOFT" 0, "WONK" 0;
+  font-weight: 400;
+  font-size: clamp(1.75rem, 8vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--ivory);
+  text-decoration: none;
+}
+.drawer__nav a:hover,
+.drawer__nav a[aria-current="page"] { color: var(--mint); }
+
+.drawer__foot { margin-top: 2.5rem; display: grid; gap: 1rem; justify-items: start; }
+.drawer__foot p {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--bone);
+  line-height: 1.9;
+}
+.drawer__foot a { color: var(--ivory); text-decoration: none; }
+
+/* Below 60rem the header carries four things — logo, phone, book, menu — so
+   everything shrinks to keep them on one line at 360px. */
+@media (max-width: 60rem) {
+  .burger { display: grid; }
+  .masthead { gap: 0.5rem; }
+  .masthead__end { gap: 0.5rem; }
+  .masthead .btn { padding: 0.6rem 0.9rem; font-size: 0.68rem; letter-spacing: 0.06em; }
+  .masthead__icon, .burger { width: 2.35rem; height: 2.35rem; }
+  .masthead__logo img,
+  .masthead.is-stuck .masthead__logo img { width: clamp(7.5rem, 30vw, 10rem); }
+}
+
+/* --- Back to top --------------------------------------------------------- */
+
+.totop {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 90;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: 1px solid var(--rule-dark);
+  background: rgba(8, 24, 29, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--ivory);
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0.75rem);
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease),
+              visibility 0.3s var(--ease), border-color 0.25s var(--ease),
+              background 0.25s var(--ease);
+}
+.totop.is-shown { opacity: 1; visibility: visible; transform: none; }
+.totop:hover { border-color: var(--mint); color: var(--mint); background: var(--ink); }
+.totop svg {
+  width: 1.1rem; height: 1.1rem;
+  fill: none; stroke: currentColor; stroke-width: 1.7;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+
 /* Scoped to .masthead__link, NOT `.masthead__nav a` — the broader selector
    outranks .btn--primary and would repaint the Book online label bone-on-mint. */
 .masthead__link {
@@ -516,14 +667,13 @@ a { color: inherit; }
 
 .plate img {
   width: 100%;
-  aspect-ratio: 3 / 2;
+  aspect-ratio: 21 / 9;
   object-fit: cover;
   filter: saturate(0.88);
 }
 
-@media (max-width: 46rem) {
-  .plate img { aspect-ratio: 4 / 3; }
-}
+@media (max-width: 64rem) { .plate img { aspect-ratio: 16 / 9; } }
+@media (max-width: 40rem) { .plate img { aspect-ratio: 4 / 3; } }
 
 .plate__cap {
   position: absolute;
