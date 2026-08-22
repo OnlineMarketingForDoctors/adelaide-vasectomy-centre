@@ -512,28 +512,17 @@ a { color: inherit; }
 
 /* --- Full-bleed image plate --------------------------------------------- */
 
-/* The image is taller than its frame so it can drift inside it on scroll.
-   site.js drives the transform; without JS it simply sits centred. */
-.plate {
-  position: relative;
-  overflow: hidden;
-  background: var(--teal-deep);
-  aspect-ratio: 3 / 2;
-}
+.plate { position: relative; background: var(--teal-deep); }
 
 .plate img {
-  position: absolute;
-  left: 0;
-  top: -12%;
   width: 100%;
-  height: 124%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
   filter: saturate(0.88);
-  will-change: transform;
 }
 
 @media (max-width: 46rem) {
-  .plate { aspect-ratio: 4 / 3; }
+  .plate img { aspect-ratio: 4 / 3; }
 }
 
 .plate__cap {
