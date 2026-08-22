@@ -613,10 +613,11 @@ a { color: inherit; }
 }
 .film__play:hover span { transform: scale(1.07); background: var(--ivory); }
 
+/* The triangle is drawn with its centroid at the middle of the viewBox, so
+   no margin fudge is needed to make it look centred in the disc. */
 .film__play svg {
-  width: 34%;
-  height: 34%;
-  margin-left: 8%;   /* optical centring: a triangle's mass sits left of centre */
+  width: 36%;
+  height: 36%;
   fill: var(--ink);
 }
 

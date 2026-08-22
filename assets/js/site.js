@@ -112,7 +112,7 @@
     play.setAttribute("aria-label", "Play the video");
     play.innerHTML =
       '<span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
-      '<path d="M8 5v14l11-7z"/></svg></span>';
+      '<path d="M8.33 5 L19.33 12 L8.33 19 Z"/></svg></span>';
 
     film.parentElement.appendChild(play);
 
