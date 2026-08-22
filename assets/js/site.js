@@ -128,6 +128,105 @@
     play.addEventListener("click", start);
   }
 
+  /* ---- Stage tabs ------------------------------------------------------- */
+
+  var tabbed = document.querySelector("[data-tabs]");
+  if (tabbed) {
+    var tabs = Array.prototype.slice.call(tabbed.querySelectorAll('[role="tab"]'));
+
+    var show = function (tab, moveFocus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", String(on));
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+      if (moveFocus) tab.focus();
+    };
+
+    show(tabs[0], false);
+
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { show(tab, false); });
+      /* Arrow keys move between tabs, which is what a tablist is expected to do. */
+      tab.addEventListener("keydown", function (e) {
+        var step = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!step) return;
+        e.preventDefault();
+        show(tabs[(i + step + tabs.length) % tabs.length], true);
+      });
+    });
+  }
+
+  /* ---- Click-to-load embeds --------------------------------------------- */
+
+  /* Google Maps and Google Calendar are only fetched once the reader asks for
+     them. Nothing leaves the page to a third party on load, which is the point
+     on a site meant to stay private. */
+  Array.prototype.forEach.call(document.querySelectorAll("[data-embed]"), function (box) {
+    var button = box.querySelector(".embed__facade");
+    if (!button) return;
+
+    button.addEventListener("click", function () {
+      var frame = document.createElement("iframe");
+      frame.src = box.getAttribute("data-src");
+      frame.title = box.getAttribute("data-title") || "Embedded map";
+      frame.loading = "lazy";
+      frame.referrerPolicy = "no-referrer-when-downgrade";
+      frame.allowFullscreen = true;
+      box.appendChild(frame);
+      button.remove();
+    });
+  });
+
+  /* ---- Contents rail highlighting --------------------------------------- */
+
+  var toc = document.querySelector("[data-toc]");
+  if (toc && "IntersectionObserver" in window) {
+    var links = {};
+    Array.prototype.forEach.call(toc.querySelectorAll("a[href^='#']"), function (a) {
+      links[a.getAttribute("href").slice(1)] = a;
+    });
+
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        var a = links[entry.target.id];
+        if (!a) return;
+        if (entry.isIntersecting) {
+          Object.keys(links).forEach(function (k) { links[k].classList.remove("is-here"); });
+          a.classList.add("is-here");
+        }
+      });
+    }, { rootMargin: "-15% 0px -70% 0px" });
+
+    Object.keys(links).forEach(function (id) {
+      var target = document.getElementById(id);
+      if (target) spy.observe(target);
+    });
+  }
+
+  /* ---- Enquiry form: deliberately not connected ------------------------- */
+
+  /* There is no endpoint yet. Rather than let a submission silently vanish,
+     the form refuses to submit and points at the phone number instead. To make
+     it live: set ENQUIRY_ENDPOINT and replace this handler with a real POST. */
+  var ENQUIRY_ENDPOINT = null;
+
+  var enquiry = document.getElementById("enquiry");
+  if (enquiry) {
+    enquiry.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (ENQUIRY_ENDPOINT) return;
+      var note = document.getElementById("enquiry-note");
+      if (note) {
+        note.style.color = "var(--mint)";
+        note.textContent =
+          "This form isn't connected yet — your message was not sent. " +
+          "Please call 1800 764 763 or email info@vasectomyaustralia.com.au.";
+      }
+    });
+  }
+
   /* ---- One quiet reveal, once, on the way in ---------------------------- */
 
   var risers = document.querySelectorAll(".rise");
