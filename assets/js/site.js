@@ -95,6 +95,39 @@
     });
   }
 
+  /* ---- Video: a still with a play button, until it is played ------------ */
+
+  /* The markup ships with the controls attribute so the video works with no
+     JS at all. Only once we know JS is running do we take the control bar
+     away and put a play button over the poster — and the very first click
+     hands the controls straight back. */
+  var film = document.querySelector("[data-film]");
+
+  if (film && film.parentElement) {
+    film.controls = false;
+
+    var play = document.createElement("button");
+    play.type = "button";
+    play.className = "film__play";
+    play.setAttribute("aria-label", "Play the video");
+    play.innerHTML =
+      '<span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">' +
+      '<path d="M8 5v14l11-7z"/></svg></span>';
+
+    film.parentElement.appendChild(play);
+
+    var start = function () {
+      film.controls = true;
+      play.remove();
+      var p = film.play();
+      /* Autoplay policy can still reject this; the controls are already back,
+         so the reader just presses play themselves. */
+      if (p && typeof p.catch === "function") p.catch(function () {});
+    };
+
+    play.addEventListener("click", start);
+  }
+
   /* ---- One quiet reveal, once, on the way in ---------------------------- */
 
   var risers = document.querySelectorAll(".rise");

@@ -566,23 +566,58 @@ a { color: inherit; }
   .how__film { position: sticky; top: 6rem; }
 }
 
-.film { position: relative; background: #000; overflow: hidden; margin: 0; }
+.film { margin: 0; }
+
+.film__stage {
+  position: relative;
+  background: #000;
+  overflow: hidden;
+}
 
 .film video {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+  display: block;
 }
 
-.film__cap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem 1.25rem;
-  margin-top: 1rem;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--bone);
+/* site.js swaps the native control bar for this until the first play, so the
+   poster reads as a still rather than a paused player. The markup keeps the
+   controls attribute, so with JS off the video is still playable. */
+.film__play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  /* Bottom-left, not centred: this is a talking head, and a centred button
+     sits straight over his mouth. */
+  place-items: end start;
+  border: 0;
+  padding: clamp(1.1rem, 2.5vw, 1.85rem);
+  background: linear-gradient(to top, rgba(8, 24, 29, 0.55), rgba(8, 24, 29, 0.06) 55%);
+  cursor: pointer;
+  transition: background 0.35s var(--ease);
+}
+.film__play:hover { background: linear-gradient(to top, rgba(8, 24, 29, 0.62), rgba(8, 24, 29, 0.12) 55%); }
+
+.film__play span {
+  width: clamp(3.75rem, 6vw, 5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--mint);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0.75rem 2rem rgba(8, 24, 29, 0.45);
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease);
+}
+.film__play:hover span { transform: scale(1.07); background: var(--ivory); }
+
+.film__play svg {
+  width: 34%;
+  height: 34%;
+  margin-left: 8%;   /* optical centring: a triangle's mass sits left of centre */
+  fill: var(--ink);
 }
 
 /* A vertical run of the procedure, anchored at both ends by the only two

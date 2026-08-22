@@ -379,14 +379,13 @@
         <!-- video-poster.jpg is AI-generated to match a frame of the supplied
              video, using Dr Cashion's photograph as an identity reference. -->
         <figure class="how__film film">
-          <video controls preload="metadata" playsinline poster="assets/img/video-poster.jpg">
-            <source src="assets/video/how-it-works.mp4" type="video/mp4" />
-            Your browser cannot play this video. It shows Dr Cashion explaining
-            how a vasectomy works and what recovery involves.
-          </video>
-          <figcaption class="film__cap">
-            <span>Dr Geoff Cashion on how a vasectomy works, and what recovery actually looks like</span>
-          </figcaption>
+          <div class="film__stage">
+            <video controls preload="metadata" playsinline poster="assets/img/video-poster.jpg" data-film>
+              <source src="assets/video/how-it-works.mp4" type="video/mp4" />
+              Your browser cannot play this video. It shows Dr Cashion explaining
+              how a vasectomy works and what recovery involves.
+            </video>
+          </div>
         </figure>
 
         <div class="how__steps">
