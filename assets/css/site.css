@@ -277,26 +277,34 @@ a { color: inherit; }
   z-index: 0;
 }
 
-/* 25% keeps both doctors in the right half, clear of the headline. */
+/* Both doctors sit centred and high in the frame; the copy is banded across
+   the bottom so it never crosses a face. */
 .hero__media img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 25% 30%;
+  object-position: 50% 26%;
   filter: saturate(0.85) contrast(1.04);
 }
 
 @media (max-width: 62rem) {
-  .hero__media img { object-position: 42% 22%; }
+  .hero__media img { object-position: 50% 18%; }
 }
 
+/* Weighted to the bottom rather than the left: the faces stay clear, and the
+   top edge is darkened just enough to hold the masthead. */
 .hero__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
-  background:
-    linear-gradient(to top, var(--ink) 4%, rgba(8, 24, 29, 0.72) 42%, rgba(8, 24, 29, 0.34) 78%),
-    linear-gradient(to right, rgba(8, 24, 29, 0.82) 0%, rgba(8, 24, 29, 0.12) 62%);
+  background: linear-gradient(
+    to top,
+    var(--ink) 0%,
+    rgba(8, 24, 29, 0.93) 20%,
+    rgba(8, 24, 29, 0.62) 38%,
+    rgba(8, 24, 29, 0.18) 60%,
+    rgba(8, 24, 29, 0.42) 100%
+  );
 }
 
 .hero__inner {
@@ -305,7 +313,17 @@ a { color: inherit; }
   width: 100%;
 }
 
-.hero__title { max-width: 17ch; }
+.hero__grid {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 3.5rem);
+  align-items: end;
+}
+
+@media (min-width: 62rem) {
+  .hero__grid { grid-template-columns: 1.1fr 0.9fr; }
+}
+
+.hero__title { max-width: 15ch; }
 
 .hero__title em {
   font-style: normal;
@@ -313,14 +331,14 @@ a { color: inherit; }
   color: var(--mint);
 }
 
-.hero__lede { margin: 2rem 0 0; }
+.hero__lede { margin: 0; }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem 1.5rem;
-  margin-top: 2.5rem;
+  margin-top: 2rem;
 }
 
 .hero__price {
@@ -328,6 +346,7 @@ a { color: inherit; }
   font-size: 0.8rem;
   letter-spacing: 0.06em;
   color: var(--bone);
+  margin: 0;
 }
 .hero__price b { color: var(--ivory); font-weight: 500; }
 
@@ -515,139 +534,32 @@ a { color: inherit; }
   color: var(--bone);
 }
 
-/* --- Signature: the to-scale 15-minute timeline ------------------------- */
+/* --- Signature: the fifteen minutes, beside the film -------------------- */
 
 .clock__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
+  display: grid;
+  gap: 1.25rem clamp(2rem, 5vw, 4.5rem);
+  align-items: end;
   margin-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 
-.clock__axis {
-  position: relative;
-  margin-top: 3.5rem;
-  padding-top: 2.25rem;
-  border-top: 1px solid var(--rule-dark);
+@media (min-width: 62rem) {
+  .clock__head { grid-template-columns: 1.15fr 0.85fr; }
 }
 
-.clock__ticks {
-  position: absolute;
-  inset: 0 0 auto;
-  height: 0;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.clock__tick {
-  position: absolute;
-  top: 0;
-  transform: translateX(-50%);
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  color: var(--bone);
-  padding-top: 0.75rem;
-  white-space: nowrap;
-}
-
-.clock__tick::before {
-  content: "";
-  position: absolute;
-  top: -0.5rem;
-  left: 50%;
-  width: 1px;
-  height: 0.5rem;
-  background: var(--rule-dark);
-}
-
-.clock__tick:first-child { transform: none; }
-.clock__tick:first-child::before { left: 0; }
-.clock__tick:last-child { transform: translateX(-100%); }
-.clock__tick:last-child::before { left: calc(100% - 1px); }
-
-.clock__steps {
+.how {
   display: grid;
-  gap: 2px;
-  grid-template-columns: var(--step-cols, repeat(6, 1fr));
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+  align-items: start;
 }
 
-.clock__step {
-  position: relative;
-  padding: 1.5rem 1.1rem 1.75rem;
-  background: var(--teal-deep);
-  transition: background 0.35s var(--ease);
-  min-width: 0;
-}
-.clock__step:hover { background: #17414D; }
-
-.clock__step::before {
-  content: "";
-  position: absolute;
-  inset: 0 0 auto;
-  height: 2px;
-  background: var(--teal);
-  transition: background 0.35s var(--ease);
-}
-.clock__step:hover::before { background: var(--mint); }
-
-.clock__no {
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.1em;
-  color: var(--mint);
-  display: block;
-  margin-bottom: 0.75rem;
+@media (min-width: 62rem) {
+  .how { grid-template-columns: 1.05fr 0.95fr; }
+  /* The film stays put while the six steps scroll past it. */
+  .how__film { position: sticky; top: 6rem; }
 }
 
-.clock__text {
-  margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.5;
-  color: var(--ivory);
-  text-wrap: pretty;
-}
-
-.clock__dur {
-  display: block;
-  margin-top: 0.9rem;
-  font-family: var(--mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.08em;
-  color: var(--bone);
-}
-
-.clock__foot {
-  margin-top: 1.5rem;
-  font-family: var(--mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.06em;
-  color: var(--bone);
-}
-
-@media (max-width: 62rem) {
-  .clock__steps { grid-template-columns: 1fr; gap: 1px; }
-  .clock__axis { padding-top: 0; border-top: 0; margin-top: 2.5rem; }
-  .clock__ticks { display: none; }
-  .clock__step { display: grid; grid-template-columns: 3.5rem 1fr; gap: 0 1rem; }
-  .clock__no { grid-row: 1 / 3; margin: 0; padding-top: 0.15rem; }
-  .clock__dur { grid-column: 2; margin-top: 0.5rem; }
-}
-
-/* --- Video -------------------------------------------------------------- */
-
-.film {
-  position: relative;
-  margin-top: clamp(3rem, 6vw, 5rem);
-  background: #000;
-  overflow: hidden;
-}
+.film { position: relative; background: #000; overflow: hidden; margin: 0; }
 
 .film video {
   width: 100%;
@@ -664,6 +576,93 @@ a { color: inherit; }
   font-size: 0.7rem;
   letter-spacing: 0.06em;
   color: var(--bone);
+}
+
+/* A vertical run of the procedure, anchored at both ends by the only two
+   timings the clinic actually publishes: the start, and about fifteen
+   minutes later. No invented per-step durations. */
+.stepline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.stepline::before {
+  content: "";
+  position: absolute;
+  left: 0.812rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 1px;
+  background: var(--rule-dark);
+}
+
+.stepline li {
+  position: relative;
+  padding: 0 0 1.6rem 3.25rem;
+  min-height: 1.75rem;
+}
+.stepline li:last-child { padding-bottom: 0; }
+
+.stepline__n {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--teal-deep);
+  border: 1px solid var(--teal);
+  color: var(--mint);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  display: grid;
+  place-items: center;
+  transition: border-color 0.3s var(--ease), background 0.3s var(--ease);
+}
+
+.stepline li:hover .stepline__n { border-color: var(--mint); background: #17414D; }
+
+.stepline__t {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: var(--bone);
+  text-wrap: pretty;
+  padding-top: 0.15rem;
+}
+
+.clock__mark {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+.clock__mark::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--mint);
+  flex: none;
+}
+
+.clock__mark--end { color: var(--bone); margin-top: 1.5rem; }
+.clock__mark--end::before { background: var(--rule-dark); }
+
+.clock__foot {
+  margin-top: 1.75rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule-dark);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--bone);
+  line-height: 1.9;
 }
 
 /* --- Why choose: sticky image + hairline list --------------------------- */
@@ -772,63 +771,153 @@ a { color: inherit; }
 .fee__aside p { margin: 0 0 1rem; color: var(--graphite); font-size: 0.95rem; }
 .fee__aside p:last-child { margin-bottom: 0; }
 
-/* --- Reviews ------------------------------------------------------------ */
+/* --- Reviews carousel --------------------------------------------------- */
 
-.voice {
-  border-top: 1px solid var(--rule-dark);
-  padding-top: clamp(2rem, 4vw, 3rem);
-  margin-top: clamp(2.5rem, 5vw, 4rem);
+.voices { overflow: hidden; }
+
+.voices__head {
+  display: grid;
+  gap: 1.25rem clamp(2rem, 5vw, 4.5rem);
+  align-items: end;
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
 }
 
-.voice__lead blockquote {
-  margin: 0;
-  font-family: var(--display);
-  font-variation-settings: "SOFT" 0, "WONK" 0;
-  font-weight: 300;
-  font-size: clamp(1.5rem, 3.4vw, 2.6rem);
-  line-height: 1.18;
-  letter-spacing: -0.015em;
-  color: var(--ivory);
-  text-wrap: pretty;
-  max-width: 22ch;
+@media (min-width: 62rem) {
+  .voices__head { grid-template-columns: 1.15fr 0.85fr; }
 }
 
-.voice__grid {
-  columns: 2 20rem;
-  column-gap: clamp(2rem, 4vw, 3.5rem);
-  margin-top: clamp(2.5rem, 5vw, 4rem);
+/* The track holds two identical runs of the reviews; translating it exactly
+   -50% lands run two where run one began, so the loop is seamless. */
+.marquee {
+  position: relative;
+  --edge: clamp(1.5rem, 5vw, 5rem);
 }
 
-.voice__item {
-  break-inside: avoid;
-  margin: 0 0 clamp(2rem, 4vw, 3rem);
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--rule-dark);
-}
-
-.voice__item blockquote {
-  margin: 0 0 1rem;
-  color: var(--ivory);
-  font-size: 1rem;
-  line-height: 1.6;
-  text-wrap: pretty;
-}
-
-.voice__by {
+.marquee__track {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem 0.9rem;
-  align-items: baseline;
+  align-items: flex-start;
+  gap: 1.25rem;
+  width: max-content;
+  padding-inline: var(--edge);
+  animation: voices-drift 95s linear infinite;
+}
+
+@keyframes voices-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+.marquee.is-held .marquee__track { animation-play-state: paused; }
+
+/* Soft edges so cards enter and leave rather than being cut off. */
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  width: clamp(2rem, 7vw, 7rem);
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee::before { left: 0;  background: linear-gradient(to right, var(--ink-raised), transparent); }
+.marquee::after  { right: 0; background: linear-gradient(to left,  var(--ink-raised), transparent); }
+
+.rev {
+  flex: none;
+  width: clamp(17.5rem, 25vw, 22rem);
+  background: var(--teal-deep);
+  border-top: 2px solid var(--teal);
+  padding: 1.5rem 1.5rem 1.75rem;
+  transition: border-color 0.35s var(--ease), background 0.35s var(--ease);
+}
+
+.rev:hover, .rev.is-open { border-top-color: var(--mint); background: #17414D; }
+
+.rev__top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.9rem;
+}
+
+.rev__g {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: grid;
+  place-items: center;
+  background: var(--ivory);
+  border-radius: 50%;
+}
+.rev__g svg { width: 1rem; height: 1rem; }
+
+.rev__who { display: flex; flex-direction: column; min-width: 0; }
+
+.rev__name {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--ivory);
+  line-height: 1.3;
+}
+
+.rev__src {
   font-family: var(--mono);
-  font-size: 0.68rem;
-  letter-spacing: 0.08em;
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--bone);
 }
 
-.voice__by b { color: var(--ivory); font-weight: 500; }
+.rev__stars { margin: 0 0 0.9rem; }
 
-.stars { color: var(--mint); letter-spacing: 0.12em; font-size: 0.7rem; }
+.stars { color: var(--mint); letter-spacing: 0.14em; font-size: 0.78rem; }
+
+.rev__text {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--bone);
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
+  overflow: hidden;
+}
+
+.rev.is-open .rev__text {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+
+.rev__more {
+  margin-top: 0.9rem;
+  padding: 0;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--rule-dark);
+  color: var(--mint);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.25s var(--ease);
+}
+.rev__more:hover { border-bottom-color: var(--mint); }
+
+/* Without animation the track becomes an ordinary swipeable row. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track {
+    animation: none;
+    width: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 1rem;
+  }
+  .rev { scroll-snap-align: start; }
+}
 
 /* --- FAQ ---------------------------------------------------------------- */
 
