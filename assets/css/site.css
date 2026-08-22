@@ -232,7 +232,14 @@ a { color: inherit; }
 }
 
 .masthead__logo { display: flex; align-items: center; flex: none; }
-.masthead__logo img { width: clamp(9.5rem, 16vw, 12.5rem); }
+
+/* Large while the hero is in view, settling to the compact size once the
+   masthead gains its ground. */
+.masthead__logo img {
+  width: clamp(11rem, 21vw, 17rem);
+  transition: width 0.4s var(--ease);
+}
+.masthead.is-stuck .masthead__logo img { width: clamp(9.5rem, 16vw, 12.5rem); }
 
 .masthead__nav {
   display: flex;
@@ -505,17 +512,28 @@ a { color: inherit; }
 
 /* --- Full-bleed image plate --------------------------------------------- */
 
-.plate { position: relative; background: var(--teal-deep); }
+/* The image is taller than its frame so it can drift inside it on scroll.
+   site.js drives the transform; without JS it simply sits centred. */
+.plate {
+  position: relative;
+  overflow: hidden;
+  background: var(--teal-deep);
+  aspect-ratio: 3 / 2;
+}
 
 .plate img {
+  position: absolute;
+  left: 0;
+  top: -12%;
   width: 100%;
-  aspect-ratio: 3 / 2;
+  height: 124%;
   object-fit: cover;
   filter: saturate(0.88);
+  will-change: transform;
 }
 
 @media (max-width: 46rem) {
-  .plate img { aspect-ratio: 4 / 3; }
+  .plate { aspect-ratio: 4 / 3; }
 }
 
 .plate__cap {
@@ -670,7 +688,7 @@ a { color: inherit; }
 .why { display: grid; gap: clamp(2.5rem, 5vw, 4.5rem); }
 
 @media (min-width: 62rem) {
-  .why { grid-template-columns: 0.9fr 1.1fr; align-items: start; }
+  .why { grid-template-columns: 1.1fr 0.9fr; align-items: start; }
   .why__media { position: sticky; top: 6rem; }
 }
 
@@ -775,17 +793,6 @@ a { color: inherit; }
 
 .voices { overflow: hidden; }
 
-.voices__head {
-  display: grid;
-  gap: 1.25rem clamp(2rem, 5vw, 4.5rem);
-  align-items: end;
-  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
-}
-
-@media (min-width: 62rem) {
-  .voices__head { grid-template-columns: 1.15fr 0.85fr; }
-}
-
 /* The track holds two identical runs of the reviews; translating it exactly
    -50% lands run two where run one began, so the loop is seamless. */
 .marquee {
@@ -872,6 +879,9 @@ a { color: inherit; }
 
 .stars { color: var(--mint); letter-spacing: 0.14em; font-size: 0.78rem; }
 
+/* Fixing the text block to exactly six line boxes — rather than letting the
+   clamp stop early on short reviews — is what makes every closed card the
+   same height, without stretching them to match an expanded one. */
 .rev__text {
   margin: 0;
   font-size: 0.95rem;
@@ -883,16 +893,21 @@ a { color: inherit; }
   -webkit-line-clamp: 6;
   line-clamp: 6;
   overflow: hidden;
+  height: calc(6 * 1.6em);
 }
 
 .rev.is-open .rev__text {
   -webkit-line-clamp: unset;
   line-clamp: unset;
   overflow: visible;
+  height: auto;
 }
 
+/* Reserve the Read more row on every card so the ones without a button do not
+   sit shorter than the ones with. */
+.rev__foot { min-height: 1.9rem; margin-top: 0.9rem; }
+
 .rev__more {
-  margin-top: 0.9rem;
   padding: 0;
   background: none;
   border: 0;

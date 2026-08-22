@@ -37,7 +37,11 @@
       btn.className = "rev__more";
       btn.textContent = "Read more";
       btn.setAttribute("aria-expanded", "false");
-      card.appendChild(btn);
+
+      /* Into the reserved footer row, not onto the end of the card — appending
+         to the card would add the button's height on top of that row and make
+         these cards taller than the ones without a button. */
+      (card.querySelector(".rev__foot") || card).appendChild(btn);
     };
 
     originals.forEach(addToggle);
@@ -89,6 +93,43 @@
       held.open = !!track.querySelector(".rev.is-open");
       sync();
     });
+  }
+
+  /* ---- Parallax on the full-bleed plate --------------------------------- */
+
+  /* The image is 124% of its frame, so it has 12% of headroom top and bottom.
+     Drifting it +/-7% as the frame crosses the viewport stays inside that
+     margin, which means no gap can ever appear at either edge. */
+  var plates = document.querySelectorAll(".plate img");
+
+  if (plates.length && !reduced) {
+    var ticking = false;
+
+    var drift = function () {
+      ticking = false;
+      var vh = window.innerHeight;
+
+      Array.prototype.forEach.call(plates, function (img) {
+        var frame = img.parentElement;
+        var r = frame.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > vh) return;
+
+        /* 0 as the frame enters at the bottom, 1 as it leaves at the top. */
+        var progress = (vh - r.top) / (vh + r.height);
+        var shift = (0.5 - progress) * 14;
+        img.style.transform = "translate3d(0, " + shift.toFixed(2) + "%, 0)";
+      });
+    };
+
+    var request = function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(drift);
+    };
+
+    drift();
+    window.addEventListener("scroll", request, { passive: true });
+    window.addEventListener("resize", request, { passive: true });
   }
 
   /* ---- One quiet reveal, once, on the way in ---------------------------- */
