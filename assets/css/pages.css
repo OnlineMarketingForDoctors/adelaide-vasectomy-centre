@@ -534,7 +534,9 @@
   .phero {
     min-height: 0;
     display: block;
-    padding: 0 0 clamp(2.5rem, 8vw, 4rem);
+    /* Reserve the header's height so it reads as a bar above the image
+       rather than floating over it. See --head-mobile in site.css. */
+    padding: var(--head-mobile) 0 clamp(2.5rem, 8vw, 4rem);
   }
   .phero__media { position: relative; inset: auto; height: auto; }
   .phero__media img { height: auto; aspect-ratio: 4 / 3; }

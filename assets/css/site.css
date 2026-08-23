@@ -38,6 +38,12 @@
   --maxw: 78rem;
   --section-y: clamp(5rem, 11vw, 10rem);
 
+  /* What a mobile hero reserves at the top so the fixed header sits above the
+     photograph instead of on it. The header measures 80px at its tallest —
+     1.25rem of padding above and below the 39px Book online button — and this
+     leaves a few pixels spare for font fallback. */
+  --head-mobile: 5.25rem;
+
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
@@ -273,6 +279,10 @@ a { color: inherit; }
 }
 .masthead__icon:hover { border-color: var(--mint); color: var(--mint); }
 
+/* Declared here, above the mobile block, so the narrow-screen override that
+   shrinks it actually wins — same specificity, so source order decides. */
+.masthead .btn { padding: 0.7rem 1.25rem; }
+
 .burger {
   display: none;
   width: 2.6rem;
@@ -416,8 +426,6 @@ a { color: inherit; }
   white-space: nowrap;
 }
 .masthead__link:hover { color: var(--ivory); }
-
-.masthead .btn { padding: 0.7rem 1.25rem; }
 
 @media (max-width: 60rem) {
   .masthead__nav .masthead__link { display: none; }
@@ -1284,13 +1292,14 @@ a { color: inherit; }
 /* --- Mobile hero: image on top, copy beneath ---------------------------- */
 
 /* Below 48rem the copy stops sitting on the photograph. The image runs
-   full-bleed at the top with the header floating over it, and the text gets
-   a solid ground of its own. */
+   full-bleed under a solid header bar, and the text gets a ground of its own.
+   The top padding is what keeps the logo and buttons off the doctors' faces. */
 @media (max-width: 48rem) {
   .hero {
     min-height: 0;
     display: block;
-    padding: 0 0 clamp(2.5rem, 8vw, 4rem);
+    padding: var(--head-mobile) 0 clamp(2.5rem, 8vw, 4rem);
+    background: var(--ink);
   }
   .hero__media { position: relative; inset: auto; height: auto; }
   .hero__media img { height: auto; aspect-ratio: 4 / 3; object-position: 50% 22%; }
