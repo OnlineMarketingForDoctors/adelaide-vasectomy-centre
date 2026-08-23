@@ -378,8 +378,12 @@ a { color: inherit; }
   .masthead__end { gap: 0.5rem; }
   .masthead .btn { padding: 0.6rem 0.9rem; font-size: 0.68rem; letter-spacing: 0.06em; }
   .masthead__icon, .burger { width: 2.35rem; height: 2.35rem; }
+  /* The resting header only holds the logo, the phone and the menu, so the
+     logo can take most of the row. Capped at 13rem: any wider and it grows
+     taller than the 2.35rem buttons and the header stops matching the space
+     the heroes reserve for it (--head-mobile). */
   .masthead__logo img,
-  .masthead.is-stuck .masthead__logo img { width: clamp(9.5rem, 40vw, 12rem); }
+  .masthead.is-stuck .masthead__logo img { width: clamp(10.5rem, 52vw, 13rem); }
 
   .masthead .btn--primary { display: none; }
 
