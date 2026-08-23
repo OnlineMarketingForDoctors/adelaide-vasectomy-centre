@@ -140,8 +140,10 @@
       drawer.hidden = !open;
       burger.setAttribute("aria-expanded", String(open));
       burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-      /* Stop the page behind the drawer scrolling with it. */
+      /* Stop the page behind the drawer scrolling with it, and give the
+         fixed header a solid ground so the drawer cannot show through it. */
       document.body.style.overflow = open ? "hidden" : "";
+      document.body.classList.toggle("menu-open", open);
       if (open) {
         var first = drawer.querySelector("a");
         if (first) first.focus();

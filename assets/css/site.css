@@ -223,6 +223,7 @@ a { color: inherit; }
   border-bottom: 1px solid transparent;
 }
 
+.menu-open .masthead,
 .masthead.is-stuck {
   background: rgba(8, 24, 29, 0.86);
   backdrop-filter: blur(14px);
@@ -313,15 +314,19 @@ a { color: inherit; }
 
 /* --- Mobile drawer ------------------------------------------------------ */
 
+/* align-content:center pushes overflow in BOTH directions, so once the links
+   are taller than the screen the first one slides up under the fixed header
+   and cannot be scrolled back to. Start-aligned, it simply scrolls. */
 .drawer {
   position: fixed;
   inset: 0;
   z-index: 99;
   background: var(--ink);
   display: grid;
-  align-content: center;
-  padding: 6rem var(--gutter) 3rem;
+  align-content: start;
+  padding: 7rem var(--gutter) 3rem;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .drawer[hidden] { display: none; }
 
@@ -1273,4 +1278,24 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .rise { opacity: 1; transform: none; }
+}
+
+
+/* --- Mobile hero: image on top, copy beneath ---------------------------- */
+
+/* Below 48rem the copy stops sitting on the photograph. The image runs
+   full-bleed at the top with the header floating over it, and the text gets
+   a solid ground of its own. */
+@media (max-width: 48rem) {
+  .hero {
+    min-height: 0;
+    display: block;
+    padding: 0 0 clamp(2.5rem, 8vw, 4rem);
+  }
+  .hero__media { position: relative; inset: auto; height: auto; }
+  .hero__media img { height: auto; aspect-ratio: 4 / 3; object-position: 50% 22%; }
+  .hero__scrim { display: none; }
+  .hero__inner { padding-top: clamp(2rem, 7vw, 3rem); }
+  .hero__title { max-width: none; }
+  .hero__actions { margin-top: 1.75rem; }
 }

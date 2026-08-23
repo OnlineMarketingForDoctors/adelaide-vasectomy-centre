@@ -1,6 +1,6 @@
   <!-- ===== Hero ========================================================= -->
   <section class="phero">
-    <div class="phero__media">
+    <div class="phero__media phero__media--flip">
       <picture>
         <source srcset="{{UP}}assets/img/consult-room.webp" type="image/webp" />
         <img src="{{UP}}assets/img/consult-room.jpg" alt="A consultation room at the Adelaide Vasectomy Centre" width="1800" height="1005" fetchpriority="high" />
@@ -237,10 +237,12 @@
         </div>
 
         <aside class="rise">
-          <picture>
-            <source srcset="{{UP}}assets/img/fees-desk.webp" type="image/webp" />
-            <img src="{{UP}}assets/img/fees-desk.jpg" alt="Paperwork and invoices on a desk" width="1600" height="893" loading="lazy" />
-          </picture>
+          <div class="fee__figure">
+            <picture>
+              <source srcset="{{UP}}assets/img/fees-desk.webp" type="image/webp" />
+              <img src="{{UP}}assets/img/fees-desk.jpg" alt="Paperwork and invoices on a desk" width="1600" height="893" loading="lazy" />
+            </picture>
+          </div>
         </aside>
       </div>
     </div>
