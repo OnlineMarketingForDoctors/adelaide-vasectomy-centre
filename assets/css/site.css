@@ -368,8 +368,10 @@ a { color: inherit; }
 }
 .drawer__foot a { color: var(--ivory); text-decoration: none; }
 
-/* Below 60rem the header carries four things — logo, phone, book, menu — so
-   everything shrinks to keep them on one line at 360px. */
+/* Below 60rem the header holds three things at a time, not four. At rest it
+   is the brand: logo, phone, menu — which is what lets the logo be read at a
+   sensible size on a 360px screen. Once you scroll, the booking button takes
+   the logo's place, so the call to action is what follows you down the page. */
 @media (max-width: 60rem) {
   .burger { display: grid; }
   .masthead { gap: 0.5rem; }
@@ -377,7 +379,19 @@ a { color: inherit; }
   .masthead .btn { padding: 0.6rem 0.9rem; font-size: 0.68rem; letter-spacing: 0.06em; }
   .masthead__icon, .burger { width: 2.35rem; height: 2.35rem; }
   .masthead__logo img,
-  .masthead.is-stuck .masthead__logo img { width: clamp(7.5rem, 30vw, 10rem); }
+  .masthead.is-stuck .masthead__logo img { width: clamp(9.5rem, 40vw, 12rem); }
+
+  .masthead .btn--primary { display: none; }
+
+  .masthead.is-stuck .masthead__logo { display: none; }
+  /* The end group takes the width the logo gave up, so `margin-right: auto`
+     on the button has room to push it over to where the logo was. */
+  .masthead.is-stuck .masthead__end { flex: 1; }
+  .masthead.is-stuck .btn--primary {
+    display: inline-flex;
+    order: -1;
+    margin-right: auto;
+  }
 }
 
 /* --- Back to top --------------------------------------------------------- */
@@ -687,6 +701,11 @@ a { color: inherit; }
 
 @media (max-width: 64rem) { .plate img { aspect-ratio: 16 / 9; } }
 @media (max-width: 40rem) { .plate img { aspect-ratio: 4 / 3; } }
+
+/* A 21:9 crop of a portrait or 3:2 frame throws away a third of its height.
+   Where the subjects' heads sit high, centring that crop shaves them off, so
+   these plates take the top of the frame instead. */
+.plate--top img { object-position: 50% 16%; }
 
 .plate__cap {
   position: absolute;

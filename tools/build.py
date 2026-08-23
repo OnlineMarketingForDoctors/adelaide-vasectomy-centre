@@ -98,7 +98,9 @@ def drawer_links(active, depth):
     items = NAV_ITEMS + [("recovery", "After your vasectomy"),
                          ("book-online", "Book online"),
                          ("privacy-policy", "Privacy policy")]
-    out = []
+    # Home leads, because below 60rem the logo — the only other way back —
+    # gives its place to the booking button as soon as you scroll.
+    out = [f'    <a href="{up or "/"}">Home</a>']
     for slug, label in items:
         cur = ' aria-current="page"' if slug == active else ""
         out.append(f'    <a href="{up}{slug}/"{cur}>{label}</a>')
