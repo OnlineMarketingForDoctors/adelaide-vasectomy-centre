@@ -198,12 +198,20 @@ SHELL = """<!DOCTYPE html>
 {footer}
       </ul>
     </div>
-    <p class="foot__fine">
-      &copy; 2026 Adelaide Vasectomy Centre. All rights reserved.<br />
-      The information on this page is general in nature and is not a substitute
-      for individual medical advice. Talk to us about your own circumstances
-      before deciding on a vasectomy.
-    </p>
+    <div class="foot__base">
+      <p class="foot__fine">
+        &copy; 2026 Adelaide Vasectomy Centre. All rights reserved.<br />
+        The information on this page is general in nature and is not a substitute
+        for individual medical advice. Talk to us about your own circumstances
+        before deciding on a vasectomy.
+      </p>
+      <!-- rel="noreferrer" keeps this site's URL out of the agency's referrer
+           logs while it is meant to stay private. See CLAUDE.md. -->
+      <p class="foot__by">
+        Powered by
+        <a href="https://onlinemarketingfordoctors.com/" target="_blank" rel="noopener noreferrer">Online Marketing For Doctors</a>
+      </p>
+    </div>
   </div>
 </footer>
 
