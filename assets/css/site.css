@@ -653,6 +653,17 @@ a { color: inherit; }
   letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--mint);
+  margin: 0 0 0.5rem;
+}
+
+/* AHPRA registration number, required wherever a practitioner is advertised.
+   It carries the space the role line used to, so every profile keeps its
+   rhythm. */
+.spread__reg {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--bone);
   margin: 0 0 1.75rem;
 }
 
