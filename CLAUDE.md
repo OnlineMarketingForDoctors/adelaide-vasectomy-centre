@@ -85,3 +85,24 @@ Note that every `*.vercel.app` URL for this project sits behind Vercel
 Authentication (`ssoProtection: all_except_custom_domains`), so an
 unauthenticated request returns a 302 to the SSO login rather than the page.
 That is the desired state while the site is private.
+
+## AHPRA advertising rules
+
+This is a regulated medical practice, so two rules constrain the content:
+
+**No testimonials.** The Health Practitioner Regulation National Law prohibits
+advertising a regulated health service using testimonials about the clinical
+care. Patient reviews, star ratings, review counts and quoted praise must not
+appear anywhere on the site. A Google reviews carousel was removed in
+September 2026 for this reason — do not reinstate it, or add any equivalent
+(review widgets, rating badges, "what patients say" sections, quoted feedback),
+even if review copy is supplied as source material.
+
+**Registration numbers.** Wherever a practitioner is advertised, their AHPRA
+registration number appears with them:
+
+- Dr Geoff Cashion — MED0001196484
+- Dr Matt Valentine — MED0000972761
+
+These sit under the name and role in each profile block (`.spread__reg`). If a
+new page or section profiles either doctor, carry the number with it.
