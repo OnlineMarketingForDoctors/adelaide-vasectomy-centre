@@ -44,12 +44,6 @@ PAGES = {
         "One fee, no surprises: $830 less the $233 Medicare rebate is $597 out "
         "of pocket. How to claim your rebate, and why private health costs more.",
         "vasectomy-fees"),
-    "book-online": (
-        "book-online/index.html",
-        "Book Online | Adelaide Vasectomy Centre",
-        "Book your no-scalpel vasectomy in Beulah Park, Adelaide. Consultation "
-        "and procedure on the same day, no GP referral needed.",
-        "book-online"),
     "location": (
         "location/index.html",
         "Location | 252A Magill Rd, Beulah Park",
@@ -96,7 +90,6 @@ def nav(active, depth):
 def drawer_links(active, depth):
     up = "../" * depth
     items = NAV_ITEMS + [("recovery", "After your vasectomy"),
-                         ("book-online", "Book online"),
                          ("privacy-policy", "Privacy policy")]
     # Home leads, because below 60rem the logo — the only other way back —
     # gives its place to the booking button as soon as you scroll.
@@ -104,6 +97,8 @@ def drawer_links(active, depth):
     for slug, label in items:
         cur = ' aria-current="page"' if slug == active else ""
         out.append(f'    <a href="{up}{slug}/"{cur}>{label}</a>')
+    # Booking goes straight to Timely; there is no booking page of our own.
+    out.append(f'    <a href="{BOOKING}">Book online</a>')
     return "\n".join(out)
 
 
