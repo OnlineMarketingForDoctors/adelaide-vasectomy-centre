@@ -135,19 +135,20 @@
         </div>
 
         <div class="rise">
-          <!-- Click-to-load: no request reaches Google until the reader asks for
-               the map, which suits a site that is meant to stay private. -->
-          <div class="embed" data-embed
-               data-src="https://www.google.com/maps?q=252A+Magill+Rd,+Beulah+Park+SA+5067&output=embed"
-               data-title="Map of 252A Magill Rd, Beulah Park">
-            <button class="embed__facade" type="button">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-5.4 7-11a7 7 0 1 0-14 0c0 5.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>
-              <b>Show the map</b>
-              <span>Loads Google Maps. We don&rsquo;t contact Google until you tap this.</span>
-            </button>
+          <!-- Loads on sight, at the owner's request: this one is the practice's
+               own Google listing, pin and all. The booking calendar on
+               /book-online/ is still click-to-load. -->
+          <div class="embed">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3271.6568954682707!2d138.6435555!3d-34.9150589!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ab0cba8c9c4ccb5%3A0x3e8e69ad7899fb88!2sVasectomy%20Australia%20-%20Adelaide!5e0!3m2!1sen!2s!4v1790273535271!5m2!1sen!2s"
+              title="Map of Vasectomy Australia &ndash; Adelaide, 252A Magill Rd, Beulah Park SA 5067"
+              loading="lazy"
+              allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
           </div>
           <p class="form__note" style="margin-top:1rem">
-            Prefer not to load it? <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x6ab0cba8c9c4ccb5:0x3e8e69ad7899fb88?source=g.page.m._" style="color:var(--mint)">Open the listing in a new tab</a>.
+            <a href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x6ab0cba8c9c4ccb5:0x3e8e69ad7899fb88?source=g.page.m._" style="color:var(--mint)">Open the listing in Google Maps</a>
+            for directions.
           </p>
         </div>
       </div>
