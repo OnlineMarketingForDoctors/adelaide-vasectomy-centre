@@ -1124,20 +1124,60 @@ a { color: inherit; }
   background: var(--ink);
 }
 
-.foot__row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem 2rem;
+/* Logo, contact details, links: three columns wide, stacked on a phone. */
+.foot__grid {
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 3.5rem);
+  align-items: start;
+}
+@media (min-width: 52rem) {
+  .foot__grid { grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) auto; }
 }
 
+.foot__logo { display: inline-block; }
 .foot__logo img { width: 11rem; }
 
+/* The small mint label above each detail, and above the links. */
+.foot__k {
+  display: block;
+  margin: 0 0 0.35rem;
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mint);
+}
+
+.foot__contact {
+  display: grid;
+  gap: 1.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ivory);
+  line-height: 1.6;
+}
+.foot__contact a {
+  color: var(--ivory);
+  text-decoration: none;
+  border-bottom: 1px solid var(--rule-dark);
+  transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.foot__contact a:hover { border-bottom-color: var(--mint); }
+.foot__dim { font-family: var(--mono); font-size: 0.78rem; color: var(--bone); }
+
+/* One link over three lines, so no rule: three stacked underlines would read
+   as three separate links. The arrow carries the affordance instead. */
+.foot__contact .foot__place { display: inline-block; border-bottom: 0; }
+.foot__contact .foot__place:hover { color: var(--mint); }
+.foot__ext { margin-left: 0.4rem; color: var(--mint); font-size: 0.85em; }
+
+.foot__nav .foot__k { margin-bottom: 1rem; }
+
 .foot__links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
+  display: grid;
+  gap: 0.75rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1150,6 +1190,7 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--bone);
   text-decoration: none;
+  transition: color 0.25s var(--ease);
 }
 .foot__links a:hover { color: var(--ivory); }
 
@@ -1193,9 +1234,11 @@ a { color: inherit; }
 .foot__by a:hover { color: var(--mint); border-color: var(--mint); }
 
 /* The back-to-top button parks in the bottom-right corner and lands on this
-   strip at the end of the page, so the credit keeps out of its way. Only
-   needed once the two sit on one row; stacked, the credit is left-aligned. */
+   strip at the end of the page, so the credit keeps out of its way. Wide, the
+   two sit on one row and the credit steps left; narrow, the strip reserves
+   room beneath itself for the button to sit in. */
 @media (min-width: 62rem) { .foot__by { padding-right: 4rem; } }
+@media (max-width: 40rem) { .foot__base { padding-bottom: 3rem; } }
 
 /* --- Scroll reveal ------------------------------------------------------ */
 

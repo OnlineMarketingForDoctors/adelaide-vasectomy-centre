@@ -104,6 +104,7 @@ def drawer_links(active, depth):
 
 def footer_links(depth):
     up = "../" * depth
+    # The phone number left this list when the footer gained contact details.
     items = [(f"{up}patient-information/", "Patient info"),
              (f"{up}about-us/", "About"),
              (f"{up}vasectomy-fees/", "Fees"),
@@ -111,8 +112,8 @@ def footer_links(depth):
              (f"{up}location/", "Location"),
              (f"{up}contact-us/", "Contact"),
              (f"{up}privacy-policy/", "Privacy policy"),
-             ("tel:1800764763", "1800 764 763")]
-    return "\n".join(f'        <li><a href="{h}">{t}</a></li>' for h, t in items)
+             (BOOKING, "Book online")]
+    return "\n".join(f'          <li><a href="{h}">{t}</a></li>' for h, t in items)
 
 
 SHELL = """<!DOCTYPE html>
@@ -185,13 +186,32 @@ SHELL = """<!DOCTYPE html>
 
 <footer class="foot">
   <div class="wrap wrap--wide">
-    <div class="foot__row">
-      <a class="foot__logo" href="{up}" aria-label="Adelaide Vasectomy Centre — home">
+    <div class="foot__grid">
+      <a class="foot__logo" href="{up}" aria-label="Adelaide Vasectomy Centre &mdash; home">
         <img src="{up}assets/brand/logo.svg" alt="Adelaide Vasectomy Centre" width="516" height="93" loading="lazy" />
       </a>
-      <ul class="foot__links">
-{footer}
+
+      <ul class="foot__contact">
+        <li>
+          <span class="foot__k">Phone</span>
+          <a href="tel:1800764763">1800 SNIPME</a> <span class="foot__dim">(1800 764 763)</span>
+        </li>
+        <li>
+          <span class="foot__k">Email</span>
+          <a href="mailto:info@vasectomyaustralia.com.au">info@vasectomyaustralia.com.au</a>
+        </li>
+        <li>
+          <span class="foot__k">Clinic</span>
+          <a class="foot__place" href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x6ab0cba8c9c4ccb5:0x3e8e69ad7899fb88?source=g.page.m._">Vasectomy Australia &ndash; Adelaide<br />252A Magill Rd<br />Beulah Park SA 5067<span class="foot__ext" aria-hidden="true">&#8599;</span><span class="vh"> &mdash; open in Google Maps</span></a>
+        </li>
       </ul>
+
+      <nav class="foot__nav" aria-label="Footer">
+        <h2 class="foot__k">Quick links</h2>
+        <ul class="foot__links">
+{footer}
+        </ul>
+      </nav>
     </div>
     <div class="foot__base">
       <p class="foot__fine">
