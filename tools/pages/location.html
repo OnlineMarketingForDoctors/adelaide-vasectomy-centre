@@ -103,16 +103,12 @@
       </div>
 
       <div class="rise" style="margin-top:clamp(2rem,4vw,3rem)">
-        <!-- Click-to-load: nothing reaches Google until the reader asks for it.
-             Unlike the map above, this one is not the point of the page. -->
-        <div class="embed" data-embed
-             data-src="https://calendar.google.com/calendar/embed?src=r3696fgsjrih3c0sun6dc94n70%40group.calendar.google.com&ctz=Australia%2FAdelaide"
-             data-title="Adelaide Vasectomy Centre clinic calendar">
-          <button class="embed__facade" type="button">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v15H4zM4 9h16M9 3v4M15 3v4"/></svg>
-            <b>Show the clinic calendar</b>
-            <span>Loads Google Calendar. We don&rsquo;t contact Google until you tap this.</span>
-          </button>
+        <div class="embed">
+          <iframe
+            src="https://calendar.google.com/calendar/embed?src=r3696fgsjrih3c0sun6dc94n70%40group.calendar.google.com&amp;ctz=Australia%2FAdelaide"
+            title="Adelaide Vasectomy Centre clinic calendar"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"></iframe>
         </div>
       </div>
     </div>

@@ -134,27 +134,6 @@
     });
   }
 
-  /* ---- Click-to-load embeds --------------------------------------------- */
-
-  /* Google Maps and Google Calendar are only fetched once the reader asks for
-     them. Nothing leaves the page to a third party on load, which is the point
-     on a site meant to stay private. */
-  Array.prototype.forEach.call(document.querySelectorAll("[data-embed]"), function (box) {
-    var button = box.querySelector(".embed__facade");
-    if (!button) return;
-
-    button.addEventListener("click", function () {
-      var frame = document.createElement("iframe");
-      frame.src = box.getAttribute("data-src");
-      frame.title = box.getAttribute("data-title") || "Embedded map";
-      frame.loading = "lazy";
-      frame.referrerPolicy = "no-referrer-when-downgrade";
-      frame.allowFullscreen = true;
-      box.appendChild(frame);
-      button.remove();
-    });
-  });
-
   /* ---- Contents rail highlighting --------------------------------------- */
 
   var toc = document.querySelector("[data-toc]");
