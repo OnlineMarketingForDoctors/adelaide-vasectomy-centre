@@ -479,6 +479,16 @@
 .deets a { text-decoration: none; border-bottom: 1px solid var(--rule-dark); }
 .deets a:hover { border-bottom-color: var(--mint); }
 
+/* The address is one link over three lines, so it drops the rule an inline
+   link carries — three stacked underlines read as three separate links. */
+.deets .deets__place {
+  display: inline-block;
+  border-bottom: 0;
+  transition: color 0.25s var(--ease);
+}
+.deets .deets__place:hover { color: var(--mint); }
+.deets__ext { margin-left: 0.4rem; color: var(--mint); font-size: 0.85em; }
+
 /* --- Wide CTA band ------------------------------------------------------- */
 
 .callout {
